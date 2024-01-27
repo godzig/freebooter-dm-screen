@@ -3,8 +3,8 @@
 // import Image from "next/image";
 import dynamic from 'next/dynamic'
 
-const Book = dynamic(() => import('./Book'), { ssr: false })
-const SpellName = dynamic(() => import('./SpellName'), { ssr: false })
+const Book = dynamic(() => import('../components/Book'), { ssr: false })
+const SpellName = dynamic(() => import('../components/SpellName'), { ssr: false })
 
 export default function Home() {
 

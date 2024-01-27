@@ -1,5 +1,5 @@
 // Generates spell names per Freebooter tables
-import { pick, wizardName } from "./utils";
+import { pick, wizardName } from "../app/utils";
 import { useState } from 'react'
 
 const form = ["Armor", "Arrow", "Aura", "Bane", "Beast", "Blade", "Blast", "Blessing", "Blob", "Blood", "Bolt", "Bond", "Boon", "Brain", "Burst", "Call", "Charm", "Circle", "Claw", "Cloak", "Cone", "Crown", "Cube", "Cup", "Curse", "Dagger", "Dart", "Demon", "Disturbance", "Door", "Eye", "Eyes", "Face", "Fang", "Feast", "Finger", "Fissure", "Fist", "Gate", "Gaze", "Glamour", "Globe", "Golem", "Guard", "Guide", "Guise", "Halo", "Hammer", "Hand", "Heart", "Helm", "Horn", "Jar", "Lock", "Mantle", "Mark", "Memory", "Mind", "Mouth", "Oath", "Oracle", "Pattern", "Pet", "Pillar", "Pocket", "Portal", "Pyramid", "Ray", "Rune", "Scream", "Seal", "Sentinel", "Servant", "Shaft", "Shield", "Sigil", "Sign", "Song", "Spear", "Sphere", "Spray", "Staff", "Storm", "Strike", "Sword", "Tendril", "Tongue", "Tooth", "Trap", "Veil", "Voice", "Wall", "Ward", "Wave", "Weapon", "Weave", "Whisper", "Wings", "Word"];
