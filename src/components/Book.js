@@ -43,8 +43,8 @@ export default function Book(props) {
 
     return (
         <>
-            <button onClick={updateBook} className="bg-gray-800 hover:bg-gray-900 rounded-full p-2 m-2">New Books</button>
-            <ul className="list-disc">{books}</ul>
+            <button onClick={updateBook} className="bg-gray-800 hover:bg-gray-900 rounded-t-3xl p-2 mb-2">New Books</button>
+            <ul className="list-disc mx-8">{books}</ul>
         </>
     )
 }

@@ -47,8 +47,8 @@ export default function SpellName(props) {
 
     return (
         <>
-            <button onClick={updateSpell} className="bg-gray-800 hover:bg-gray-900 rounded-full p-2 m-2">New Spells</button>
-            <ul className="list-disc">{spells}</ul>
+            <button onClick={updateSpell} className="bg-gray-800 hover:bg-gray-900 rounded-t-3xl p-2 mb-2">New Spells</button>
+            <ul className="list-disc mx-8">{spells}</ul>
         </>
     );
 }
