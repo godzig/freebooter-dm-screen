@@ -1,5 +1,6 @@
 import { roll } from '../app/utils';
 import { useState } from 'react';
+import bodyPart from './BodyPart'
 
 export default function Booty() {
     const [dice, setDice] = useState({ 'result': 1, 'str': 'd4' });
@@ -76,13 +77,13 @@ export default function Booty() {
                 updatedBooty['In Lair'] = rarity(roll('d4').result);
             },
             11: () => {
-                updatedBooty.Inherent = '';
+                updatedBooty.Inherent = 'none';
                 updatedBooty.Carried = `currency worth ${roll('10d10').result} sp`;
                 updatedBooty.Stashed = `currency worth ${5 * roll('10d10').result} sp`;
                 updatedBooty['In Lair'] = `currency worth ${10 * roll('10d10').result} sp`;
             },
             12: () => {
-                updatedBooty.Inherent = '';
+                updatedBooty.Inherent = 'none';
                 updatedBooty.Carried = magicItem();
                 updatedBooty.Stashed = magicItem();
                 updatedBooty['In Lair'] = magicItem();
@@ -103,11 +104,6 @@ export default function Booty() {
     function trinket(count = 1) {
         // probably this returns a semi-colon delimited string of multiple items. but readability?
         return `${count} trinkets`;
-    }
-
-    function bodyPart(bootyDie) {
-        // probably this returns a semi-colon delimited string of multiple items. but readability?
-        return `a body part for a ${bootyDie}`;
     }
 
     function gem(count = 1) {
@@ -137,15 +133,15 @@ export default function Booty() {
             ['d8 md comfortable', 'd8'],
             ['d10 lg wealthy', 'd10'],
             ['d12 xl fabulous', 'd12']
-            ].map(([text, dieRoll]) => (
-                <button onClick={() => bootyRoll({ 'str': dieRoll })} className="bg-gray-800 hover:bg-gray-900 p-2 px-6 mb-2 mr-2">{text}</button>
+            ].map(([text, dieRoll], i) => (
+                <button key={i} onClick={() => bootyRoll({ 'str': dieRoll })} className="bg-gray-800 hover:bg-gray-900 p-2 px-6 mb-2 mr-2">{text}</button>
             ))
             }
             <button onClick={() => updateBooty(dice)} className="bg-gray-600 hover:bg-gray-700 p-2 px-6 mb-2 mr-2">same roll, new goodies</button>
             <p className="mx-4">{dice.str}: {dice.result}</p>
             <ul className="list-disc mx-8">
-                {orderedBooty.map((where) => (
-                    <li>{where}: {booty[where]}</li>
+                {orderedBooty.map((where, i) => (
+                    <li key={i}>{where}: {booty[where]}</li>
                 ))
                 }
             </ul>

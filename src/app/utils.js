@@ -11,6 +11,10 @@ export function pick(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
+export function mapKeys(map, input) {
+    return Object.keys(map).reduce((prev, curr) => (parseInt(curr) >= input && parseInt(curr) < prev) ? parseInt(curr) : prev, Infinity);
+}
+
 export function roll(dice) {
     let updatedDice;
     
