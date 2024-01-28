@@ -10,7 +10,7 @@ const SpellName = dynamic(() => import('../components/SpellName'), { ssr: false 
 export default function Home() {
 
   return (
-    <main className="flex flex-col p-24 max-w-3xl">
+    <main className="flex flex-col p-2 md:p-24 max-w-3xl">
       <div className="flex flex-col border rounded-3xl border-gray-800 pt-0 pb-4 mb-4">
         <Book count="3" />
       </div>
