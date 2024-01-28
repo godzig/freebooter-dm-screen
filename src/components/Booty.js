@@ -1,6 +1,7 @@
 import { roll } from '../app/utils';
 import { useState } from 'react';
-import bodyPart from './BodyPart'
+import bodyPart from './BodyPart';
+import personalItem from './PersonalItem';
 
 export default function Booty() {
     const [dice, setDice] = useState({ 'result': 1, 'str': 'd4' });
@@ -25,12 +26,12 @@ export default function Booty() {
             2: () => {
                 updatedBooty.Inherent = 'nothing of note';
                 updatedBooty.Carried = `currency worth ${roll('2d10').result} sp`;
-                updatedBooty.Stashed = personalItem(roll('d4').result);
-                updatedBooty['In Lair'] = personalItem(roll('d6').result);
+                updatedBooty.Stashed = personalItem({count: roll('d4').result, str: dice.str});
+                updatedBooty['In Lair'] = personalItem({count: roll('d6').result, str: dice.str});
             },
             3: () => {
                 updatedBooty.Inherent = 'nutriment worth (HP/2) rations';
-                updatedBooty.Carried = personalItem();
+                updatedBooty.Carried = personalItem({str: dice.str});
                 updatedBooty.Stashed = trinket(roll('d4').result);
                 updatedBooty['In Lair'] = trinket(roll('d6').result);
             },
@@ -94,11 +95,6 @@ export default function Booty() {
             bootyTable[dice.result]();
         }
         setBooty(updatedBooty);
-    }
-
-    function personalItem(count = 1) {
-        // probably this returns a semi-colon delimited string of multiple items. but readability?
-        return `${count} personal items`;
     }
 
     function trinket(count = 1) {

@@ -1,8 +1,6 @@
 import { mapKeys, roll } from '../app/utils'
 
 export default function bodyPart(bootyDie) {
-    const rollPart = roll('d20').result;
-    const rollProperty = roll('d12').result;
     const propertyFullText = {
         augmentation: 'augmentation/enhancement',
         charm: 'charm/ward/talisman',
@@ -66,7 +64,10 @@ export default function bodyPart(bootyDie) {
         },
     }
 
+    const rollPart = roll('d20').result;
     const part = bodyPartMap[mapKeys(bodyPartMap, rollPart)];
+
+    const rollProperty = roll('d12').result;
     const property = part.property[mapKeys(part.property, rollProperty)];
 
     const result = {
