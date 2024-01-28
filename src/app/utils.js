@@ -12,7 +12,14 @@ export function pick(arr) {
 }
 
 export function roll(dice) {
-    const parts = dice.split('d');
+    let updatedDice;
+    
+    if (typeof dice === 'string') {
+        updatedDice = {'str': dice};
+    } else {
+        updatedDice = dice
+    }
+    const parts = updatedDice['str'].split('d');
 
     // currently handles _d_ : d4, 2d6, ndn. No arbitrary additions or penalties
     if (parts.length !== 2) {
@@ -21,12 +28,14 @@ export function roll(dice) {
     let numDice = parseInt(parts[0], 10);
     const diceType = parseInt(parts[1], 10);
 
-    if (!numDice) { numDice = 1 }; // if NaN for count of dice, just use 1.
+    // if NaN for count of dice, just use 1.
+    if (!numDice) { numDice = 1 }; 
 
     let result = 0;
     for (let i = 0; i < numDice; i++) {
         result += Math.floor(Math.random() * diceType) + 1;
     }
+    updatedDice = {'str': dice.str, 'result': result};
 
-    return result;
+    return (updatedDice);
 }
