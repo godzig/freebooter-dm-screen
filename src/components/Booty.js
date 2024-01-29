@@ -4,6 +4,7 @@ import bodyPart from './BodyPart';
 import personalItem from './PersonalItem';
 import trinket from './Trinket';
 import gem from './Gem';
+import jewelry from './Jewelry';
 
 export default function Booty() {
     const [dice, setDice] = useState({ 'result': 0, 'str': 'd4' });
@@ -28,32 +29,32 @@ export default function Booty() {
             2: () => {
                 updatedBooty.Inherent = 'nothing of note';
                 updatedBooty.Carried = `currency worth ${roll('2d10').result} sp`;
-                updatedBooty.Stashed = personalItem({count: roll('d4').result, str: dice.str});
-                updatedBooty['In Lair'] = personalItem({count: roll('d6').result, str: dice.str});
+                updatedBooty.Stashed = personalItem({...dice, count: roll('d4').result});
+                updatedBooty['In Lair'] = personalItem({...dice, count: roll('d6').result});
             },
             3: () => {
                 updatedBooty.Inherent = 'nutriment worth (HP/2) rations';
-                updatedBooty.Carried = personalItem({str: dice.str});
-                updatedBooty.Stashed = trinket({count: roll('d4').result, str: dice.str});
-                updatedBooty['In Lair'] = trinket({count: roll('d6').result, str: dice.str});
+                updatedBooty.Carried = personalItem({...dice});
+                updatedBooty.Stashed = trinket({...dice, count: roll('d4').result});
+                updatedBooty['In Lair'] = trinket({...dice, count: roll('d6').result});
             },
             4: () => {
                 updatedBooty.Inherent = bodyPart(dice.str);
-                updatedBooty.Carried = trinket({str: dice.str});
+                updatedBooty.Carried = trinket({...dice});
                 updatedBooty.Stashed = `currency worth ${roll('4d10').result} sp`;
                 updatedBooty['In Lair'] = `currency worth ${roll('6d10').result} sp`;
             },
             5: () => {
                 updatedBooty.Inherent = 'nutriment worth (HP/2) rations';
                 updatedBooty.Carried = `currency worth ${roll('4d10').result} sp`;
-                updatedBooty.Stashed = gem({count: roll('d4').result, str: dice.str});
-                updatedBooty['In Lair'] = gem({count: roll('d6').result, str: dice.str});
+                updatedBooty.Stashed = gem({...dice, count: roll('d4').result});
+                updatedBooty['In Lair'] = gem({...dice, count: roll('d6').result});
             },
             6: () => {
                 updatedBooty.Inherent = bodyPart(dice.str);
-                updatedBooty.Carried = gem({str: dice.str});
-                updatedBooty.Stashed = jewelry();
-                updatedBooty['In Lair'] = jewelry(roll('d4').result);
+                updatedBooty.Carried = gem({...dice});
+                updatedBooty.Stashed = jewelry({...dice});
+                updatedBooty['In Lair'] = jewelry({...dice, count: roll('d4').result});
             },
             7: () => {
                 updatedBooty.Inherent = 'nutriment worth (HP/2) rations';
@@ -63,7 +64,7 @@ export default function Booty() {
             },
             8: () => {
                 updatedBooty.Inherent = bodyPart(dice.str);
-                updatedBooty.Carried = jewelry();
+                updatedBooty.Carried = jewelry({...dice});
                 updatedBooty.Stashed = rarity();
                 updatedBooty['In Lair'] = rarity();
             },
@@ -97,11 +98,6 @@ export default function Booty() {
             bootyTable[dice.result]();
         }
         setBooty(updatedBooty);
-    }
-
-    function jewelry(count = 1) {
-        // probably this returns a semi-colon delimited string of multiple items. but readability?
-        return `${count} jewelry`;
     }
 
     function rarity(count = 1) {

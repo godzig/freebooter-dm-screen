@@ -1,6 +1,6 @@
 import { listItems, mapKeys, pick, roll } from '../app/utils';
 
-function newGem(props) {
+export function newGem(props) {
     const bootyDie = props.str;
 
     const generateGems = (bootyDie) => {
