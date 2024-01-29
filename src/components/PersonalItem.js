@@ -1,6 +1,8 @@
 // still need to build out book/scroll [21], specialty kit / tools [31], and trade good [20] under miscellaneous
 
 import { listItems, mapKeys, roll } from '../app/utils';
+import { newBookScroll } from './Rarity';
+
 
 function newPersonalItem(props) {
     let bootyDie = props.str || 'd4';
@@ -43,7 +45,7 @@ function newPersonalItem(props) {
         6: 'lockpicks/key',
         8: 'note/map/deed',
         9: 'poison/antitoxin',
-        10: 'book/scroll [21]',
+        10: newBookScroll(props),
         11: 'specialty [31] kit/tools',
         12: 'trade good [20]',
     }

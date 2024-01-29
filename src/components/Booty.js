@@ -5,6 +5,7 @@ import personalItem from './PersonalItem';
 import trinket from './Trinket';
 import gem from './Gem';
 import jewelry from './Jewelry';
+import rarity from './Rarity';
 
 export default function Booty() {
     const [dice, setDice] = useState({ 'result': 0, 'str': 'd4' });
@@ -65,8 +66,8 @@ export default function Booty() {
             8: () => {
                 updatedBooty.Inherent = bodyPart(dice.str);
                 updatedBooty.Carried = jewelry({...dice});
-                updatedBooty.Stashed = rarity();
-                updatedBooty['In Lair'] = rarity();
+                updatedBooty.Stashed = rarity({...dice});
+                updatedBooty['In Lair'] = rarity({...dice});
             },
             9: () => {
                 updatedBooty.Inherent = 'nutriment worth (HP/2) rations';
@@ -76,9 +77,9 @@ export default function Booty() {
             },
             10: () => {
                 updatedBooty.Inherent = bodyPart(dice.str);
-                updatedBooty.Carried = rarity();
-                updatedBooty.Stashed = rarity();
-                updatedBooty['In Lair'] = rarity(roll('d4').result);
+                updatedBooty.Carried = rarity({...dice});
+                updatedBooty.Stashed = rarity({...dice});
+                updatedBooty['In Lair'] = rarity({...dice, count: roll('d4').result});
             },
             11: () => {
                 updatedBooty.Inherent = 'none';
@@ -98,11 +99,6 @@ export default function Booty() {
             bootyTable[dice.result]();
         }
         setBooty(updatedBooty);
-    }
-
-    function rarity(count = 1) {
-        // probably this returns a semi-colon delimited string of multiple items. but readability?
-        return `${count} rarities`;
     }
 
     function magicItem() {
