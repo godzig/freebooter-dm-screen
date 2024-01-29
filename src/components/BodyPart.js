@@ -43,9 +43,9 @@ export default function bodyPart(bootyDie) {
         },
         16: {
             type: 'teeth/claws/horns', property: {
-                6: [propertyFullText.ingredient,`with ${roll(bootyDie).result} uses, ${bootyDie} per use`],
-                10: [propertyFullText.decorative,`with ${roll(bootyDie).result} uses, ${bootyDie} per use`],
-                12: [propertyFullText.curative,`with ${roll(bootyDie).result} uses, ${bootyDie} per use`],
+                6: [propertyFullText.ingredient, `with ${roll(bootyDie).result} uses, ${bootyDie} per use`],
+                10: [propertyFullText.decorative, `with ${roll(bootyDie).result} uses, ${bootyDie} per use`],
+                12: [propertyFullText.curative, `with ${roll(bootyDie).result} uses, ${bootyDie} per use`],
             }
         },
         18: {
@@ -77,8 +77,8 @@ export default function bodyPart(bootyDie) {
     }
 
     return (
-        <span>
+        <ul className="list-disc mx-8"><li>
             {result.type} for {result.property} {result.use}.
-        </span>
+        </li></ul>
     )
 }
