@@ -2,9 +2,10 @@ import { roll } from '../app/utils';
 import { useState } from 'react';
 import bodyPart from './BodyPart';
 import personalItem from './PersonalItem';
+import trinket from './Trinket';
 
 export default function Booty() {
-    const [dice, setDice] = useState({ 'result': 1, 'str': 'd4' });
+    const [dice, setDice] = useState({ 'result': 0, 'str': 'd4' });
     const [booty, setBooty] = useState({ 'Inherent': '', 'Carried': '', 'Stashed': '', 'In Lair': '' });
     const orderedBooty = ['Inherent', 'Carried', 'Stashed', 'In Lair'];
 
@@ -32,12 +33,12 @@ export default function Booty() {
             3: () => {
                 updatedBooty.Inherent = 'nutriment worth (HP/2) rations';
                 updatedBooty.Carried = personalItem({str: dice.str});
-                updatedBooty.Stashed = trinket(roll('d4').result);
-                updatedBooty['In Lair'] = trinket(roll('d6').result);
+                updatedBooty.Stashed = trinket({count: roll('d4').result, str: dice.str});
+                updatedBooty['In Lair'] = trinket({count: roll('d6').result, str: dice.str});
             },
             4: () => {
                 updatedBooty.Inherent = bodyPart(dice.str);
-                updatedBooty.Carried = trinket();
+                updatedBooty.Carried = trinket({str: dice.str});
                 updatedBooty.Stashed = `currency worth ${roll('4d10').result} sp`;
                 updatedBooty['In Lair'] = `currency worth ${roll('6d10').result} sp`;
             },
@@ -95,11 +96,6 @@ export default function Booty() {
             bootyTable[dice.result]();
         }
         setBooty(updatedBooty);
-    }
-
-    function trinket(count = 1) {
-        // probably this returns a semi-colon delimited string of multiple items. but readability?
-        return `${count} trinkets`;
     }
 
     function gem(count = 1) {

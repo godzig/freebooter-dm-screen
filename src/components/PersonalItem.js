@@ -1,6 +1,6 @@
 // still need to build out book/scroll [21], specialty kit / tools [31], and trade good [20] under miscellaneous
 
-import { mapKeys, roll } from '../app/utils';
+import { listItems, mapKeys, roll } from '../app/utils';
 
 function newPersonalItem(props) {
     let bootyDie = props.str || 'd4';
@@ -59,14 +59,5 @@ function newPersonalItem(props) {
 }
 
 export default function personalItem(props) {
-    const items = []
-
-    let count = props.count ? props.count : 1;
-    for (let i = 0; i < count; i++) {
-        items.push(<li key={i}>{newPersonalItem(props)}</li>);
-    }
-
-    return (
-        <ul className="list-disc mx-8">{items}</ul>
-    );
+    return (listItems(props, newPersonalItem));
 }
