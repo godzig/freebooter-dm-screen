@@ -3,6 +3,7 @@ import { useState } from 'react';
 import bodyPart from './BodyPart';
 import personalItem from './PersonalItem';
 import trinket from './Trinket';
+import gem from './Gem';
 
 export default function Booty() {
     const [dice, setDice] = useState({ 'result': 0, 'str': 'd4' });
@@ -45,12 +46,12 @@ export default function Booty() {
             5: () => {
                 updatedBooty.Inherent = 'nutriment worth (HP/2) rations';
                 updatedBooty.Carried = `currency worth ${roll('4d10').result} sp`;
-                updatedBooty.Stashed = gem(roll('d4').result);
-                updatedBooty['In Lair'] = gem(roll('d6').result);    
+                updatedBooty.Stashed = gem({count: roll('d4').result, str: dice.str});
+                updatedBooty['In Lair'] = gem({count: roll('d6').result, str: dice.str});
             },
             6: () => {
                 updatedBooty.Inherent = bodyPart(dice.str);
-                updatedBooty.Carried = gem();
+                updatedBooty.Carried = gem({str: dice.str});
                 updatedBooty.Stashed = jewelry();
                 updatedBooty['In Lair'] = jewelry(roll('d4').result);
             },
@@ -96,11 +97,6 @@ export default function Booty() {
             bootyTable[dice.result]();
         }
         setBooty(updatedBooty);
-    }
-
-    function gem(count = 1) {
-        // probably this returns a semi-colon delimited string of multiple items. but readability?
-        return `${count} gems`;
     }
 
     function jewelry(count = 1) {
