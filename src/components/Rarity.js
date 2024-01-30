@@ -57,27 +57,60 @@ export function newBookScroll(props) {
     return (bookScroll);
 }
 
-function newArtObject (props) {
-    // 1-2 pipe/cup/utensil .25 0 1-6 common (5bd×5)×m
-    // 3-4 book/scroll/map 1 0 7-9 fine (5bd×10)×m
-    // 5-6 vase/urn/bowl/pot .5 1d2-1 10-12 exquisite (5bd×20)×m
-    // 7-8 cup/goblet/chalice .5 1d2-1
-    // 9 mirror/hourglass/device 1.5 1d2-1
-    // 10-11 box/case/coffer/chest 1 1d4
-    // 12-13 painting/mosaic 1 1d2
-    // 14 candelabra/brazier 1 1d2
-    // 15-17 statue/idol/bust 2 1d8
-    // 18 desk/table/dais/stand 2 unwieldy
-    // 19 dresser/armoire/ 2 unwieldy
-    // 20 chair/settee/throne 2 unwieldy    
-    return ('art object');
+function newArtObject(props) {
+    const bootyDie = props.str;
+
+    // [form, value modifier, weight]]
+    const artObjectMap = {
+        2: ['pipe/cup/utensil', .25, 0],
+        4: ['book/scroll/map', 1, 0],
+        6: ['vase/urn/bowl/pot', .5, roll('d2').result - 1],
+        8: ['cup/goblet/chalice', .5, roll('d2').result - 1],
+        9: ['mirror/hourglass/device', 1.5, roll('d2').result - 1],
+        11: ['box/case/coffer/chest', 1, roll('d4').result],
+        13: ['painting/mosaic', 1, roll('d2').result],
+        14: ['candelabra/brazier', 1, roll('d2').result],
+        17: ['statue/idol/bust', 2, roll('d8').result],
+        18: ['desk/table/dais/stand', 2, 10],
+        19: ['dresser/armoire/', 2, 10],
+        20: ['chair/settee/throne', 2, 10],
+    };
+    const artQuality = {
+        6: ['common', roll(`5${bootyDie}`).result * 5],
+        9: ['fine', roll(`5${bootyDie}`).result * 10],
+        12: ['exquisite', roll(`5${bootyDie}`).result * 20]
+    };
+
+    const [form, valueModifier, weight] = artObjectMap[mapKeys(artObjectMap, roll('d20').result)];
+    const [quality, baseValue] = artQuality[mapKeys(artQuality, roll(bootyDie).result)];
+    const artObject = `${quality} ${form} weighing ${weight} worth ${baseValue * valueModifier} sp`;
+
+    return (artObject);
 }
 
+function newMagicItem(props) {
+    return ('a magic item');
+}
 
-// this is unfinished
 function newRarity(props) {
-    // return newTradeGood(props);
-    return newBookScroll(props); // don't forget that these come in sets of 1bd for rarities
+    const bootyDie = props.str;
+    const rarityMap = {
+        3: newTradeGood,
+        5: newBookScroll,
+        7: newArtObject,
+        12: newMagicItem,
+    }
+    const rarityRoll = mapKeys(rarityMap, roll(bootyDie).result);
+    const bookCount = (rarityRoll == 5 ) ? roll(bootyDie).result : 1;
+
+    const rarities = [];
+    for (let i = 0; i < bookCount; i++){
+        const rarity = rarityMap[rarityRoll](props);
+        rarities.push(rarity);
+    }
+    const rarity = (rarities.length > 1) ? rarities.join('; ') : rarities[0];
+
+    return rarity;
 }
 
 export default function rarity(props) {

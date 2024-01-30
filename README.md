@@ -7,5 +7,4 @@ Right now this is just an excuse project for learning NextJS.
 To do in the Booty lists:
 - Jewelry: weapons and armor tables
 - PersonalItem: specialty kit, trade goods
-- Rarity: weapons / armor
-- Rarity is unfinished... 
+- Rarity: weapons / armor, magic items 
