@@ -1,10 +1,13 @@
 import { listItems, mapKeys, pick, roll } from '../app/utils';
 import { newGem } from './Gem';
+import { newWeapon, newArmorShield, newWandStaffRod } from './MagicItem';
 
 function newJewelry(props) {
     const bootyDie = props.str;
+    const weapon = newWeapon();
+    const armor = newArmorShield();
+    const staff = newWandStaffRod();
 
-    // This needs weapon and armor tables
     const jewelryForm = {
         2: ['earrings/studs', .5],
         4: ['locket/charm/brooch/pin', .5],
@@ -14,9 +17,9 @@ function newJewelry(props) {
         14: ['box/case/canister', 1],
         15: ['belt/girdle/harness', 1],
         16: ['idol/icon/symbol/insignia', 1],
-        17: ['scepter/orb/staff/rod', 2],
-        18: ['jeweled/gilded weapon [31]', 3],
-        19: ['jeweled/gilded armor [31]', 3],
+        17: [staff, 2],
+        18: [weapon, 3],
+        19: [armor, 3],
         20: ['circlet/tiara/crown/diadem', 4]
     }
 

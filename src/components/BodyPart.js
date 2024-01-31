@@ -1,6 +1,6 @@
-import { mapKeys, roll } from '../app/utils'
+import { listItems, mapKeys, roll } from '../app/utils'
 
-export default function bodyPart(bootyDie) {
+export function newBodyPart(bootyDie) {
     const propertyFullText = {
         augmentation: 'augmentation/enhancement',
         charm: 'charm/ward/talisman',
@@ -68,17 +68,11 @@ export default function bodyPart(bootyDie) {
     const part = bodyPartMap[mapKeys(bodyPartMap, rollPart)];
 
     const rollProperty = roll('d12').result;
-    const property = part.property[mapKeys(part.property, rollProperty)];
+    const [property, use] = part.property[mapKeys(part.property, rollProperty)];
 
-    const result = {
-        type: part.type,
-        property: property[0],
-        use: property[1]
-    }
+    return (`${part.type} for ${property} ${use}`);
+}
 
-    return (
-        <ul className="list-disc mx-8"><li>
-            {result.type} for {result.property} {result.use}.
-        </li></ul>
-    )
+export default function bodyPart(props) {
+    return (listItems(props, newBodyPart));
 }

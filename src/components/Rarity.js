@@ -1,8 +1,10 @@
 import { listItems, mapKeys, roll } from '../app/utils';
-import magicItem from './MagicItem';
+import { newMagicItem, newArmorShield, newWeapon } from './MagicItem';
 
-function newTradeGood(props) {
+export function newTradeGood(props) {
     const bootyDie = props.str;
+    const weaponOrArmor = (Math.random() < .5) ? newArmorShield() : newWeapon();
+
     const tradeGoodMap = {
         1: ['grain/raw textile', 2 * roll(bootyDie).result],
         2: ['lumber/stone', 2 * roll(bootyDie).result],
@@ -14,7 +16,7 @@ function newTradeGood(props) {
         8: ['herbs/spices/tea/tobacco', roll(bootyDie).result * .25],
         9: ['monster parts', 2 * roll(bootyDie).result],
         10: ['contraband', roll(bootyDie).result * .25],
-        11: ['weapons/armor [31]', 2 * roll(bootyDie).result],
+        11: [weaponOrArmor, 2 * roll(bootyDie).result],
         12: ['silver/gold/jewels', roll(bootyDie).result],
     };
 
@@ -58,7 +60,7 @@ export function newBookScroll(props) {
     return (bookScroll);
 }
 
-function newArtObject(props) {
+export function newArtObject(props) {
     const bootyDie = props.str;
 
     // [form, value modifier, weight]]
@@ -89,19 +91,19 @@ function newArtObject(props) {
     return (artObject);
 }
 
-function newRarity(props) {
+export function newRarity(props) {
     const bootyDie = props.str;
     const rarityMap = {
         3: newTradeGood,
         5: newBookScroll,
         7: newArtObject,
-        12: magicItem,
+        12: newMagicItem,
     }
     const rarityRoll = mapKeys(rarityMap, roll(bootyDie).result);
-    const bookCount = (rarityRoll == 5 ) ? roll(bootyDie).result : 1;
+    const bookCount = (rarityRoll == 5) ? roll(bootyDie).result : 1;
 
     const rarities = [];
-    for (let i = 0; i < bookCount; i++){
+    for (let i = 0; i < bookCount; i++) {
         const rarity = rarityMap[rarityRoll](props);
         rarities.push(rarity);
     }

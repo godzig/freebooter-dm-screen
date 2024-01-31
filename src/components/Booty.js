@@ -14,8 +14,8 @@ export default function Booty() {
     const orderedBooty = ['Inherent', 'Carried', 'Stashed', 'In Lair'];
 
     function bootyRoll(dice) {
-        // const updatedDice = roll(dice);
-        const updatedDice = {str: 'd12', result: 12};
+        const updatedDice = roll(dice);
+        // const updatedDice = {str: 'd12', result: 12};
         setDice(updatedDice);
         updateBooty(updatedDice);
     }

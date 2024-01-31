@@ -1,11 +1,12 @@
 // still need to build out book/scroll [21], specialty kit / tools [31], and trade good [20] under miscellaneous
 
 import { listItems, mapKeys, roll } from '../app/utils';
-import { newBookScroll } from './Rarity';
+import { newBookScroll, newTradeGood } from './Rarity';
+import { newSpecialtyKit } from './MiscBootyDetails';
 
 
 function newPersonalItem(props) {
-    let bootyDie = props.str || 'd4';
+    const bootyDie = props.str;
 
     const generateClothing = () => {
         let clothing = {
@@ -37,6 +38,10 @@ function newPersonalItem(props) {
         12: 'weapon',
     }
 
+    const bookScroll = newBookScroll(props);
+    const tradeGood = newTradeGood(props);
+    const specialtyKit = newSpecialtyKit(props);
+
     const miscellaneous = {
         1: 'instrument',
         2: 'soap/musk/perfume',
@@ -45,19 +50,19 @@ function newPersonalItem(props) {
         6: 'lockpicks/key',
         8: 'note/map/deed',
         9: 'poison/antitoxin',
-        10: newBookScroll(props),
-        11: 'specialty [31] kit/tools',
-        12: 'trade good [20]',
+        10: bookScroll,
+        11: specialtyKit,
+        12: tradeGood,
     }
 
     const personalItemMap = {
-        4: `${clothing[mapKeys(clothing, roll('d12').result)]}`,
-        15: `${gear[mapKeys(gear, roll('d12').result)]}`,
-        20: `${miscellaneous[mapKeys(miscellaneous, roll('d12').result)]}`,
+        4: clothing[mapKeys(clothing, roll('d12').result)],
+        15: gear[mapKeys(gear, roll('d12').result)],
+        20: miscellaneous[mapKeys(miscellaneous, roll('d12').result)],
     }
 
     const personalItem = personalItemMap[mapKeys(personalItemMap, roll('d20').result)];
-    return personalItem; 
+    return personalItem;
 }
 
 export default function personalItem(props) {
