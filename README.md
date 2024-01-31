@@ -8,3 +8,8 @@ To do in the Booty lists:
 - Jewelry: weapons and armor tables
 - PersonalItem: specialty kit, trade goods
 - Rarity: weapons / armor, magic items 
+- MagicItems:
+    - skipping enchantment scope & value.
+
+UI:
+- it'd be nice to add a component with a drop down for all functions available and maybe a count for how many to roll up.

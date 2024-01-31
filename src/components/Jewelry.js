@@ -50,6 +50,3 @@ export default function jewelry(props) {
     return (listItems(props, newJewelry));
 }
 
-
-
-

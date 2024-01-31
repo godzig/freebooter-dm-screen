@@ -6,6 +6,7 @@ import trinket from './Trinket';
 import gem from './Gem';
 import jewelry from './Jewelry';
 import rarity from './Rarity';
+import magicItem from './MagicItem';
 
 export default function Booty() {
     const [dice, setDice] = useState({ 'result': 0, 'str': 'd4' });
@@ -13,7 +14,8 @@ export default function Booty() {
     const orderedBooty = ['Inherent', 'Carried', 'Stashed', 'In Lair'];
 
     function bootyRoll(dice) {
-        const updatedDice = roll(dice);
+        // const updatedDice = roll(dice);
+        const updatedDice = {str: 'd12', result: 12};
         setDice(updatedDice);
         updateBooty(updatedDice);
     }
@@ -89,9 +91,9 @@ export default function Booty() {
             },
             12: () => {
                 updatedBooty.Inherent = 'none';
-                updatedBooty.Carried = magicItem();
-                updatedBooty.Stashed = magicItem();
-                updatedBooty['In Lair'] = magicItem();
+                updatedBooty.Carried = magicItem({...dice});
+                updatedBooty.Stashed = magicItem({...dice});
+                updatedBooty['In Lair'] = magicItem({...dice});
             }
         };
 
@@ -99,11 +101,6 @@ export default function Booty() {
             bootyTable[dice.result]();
         }
         setBooty(updatedBooty);
-    }
-
-    function magicItem() {
-        // probably this returns a semi-colon delimited string of multiple items. but readability?
-        return `a magic item`;
     }
 
     return (

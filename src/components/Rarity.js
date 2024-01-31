@@ -1,4 +1,5 @@
-import { listItems, mapKeys, pick, roll } from '../app/utils';
+import { listItems, mapKeys, roll } from '../app/utils';
+import magicItem from './MagicItem';
 
 function newTradeGood(props) {
     const bootyDie = props.str;
@@ -88,17 +89,13 @@ function newArtObject(props) {
     return (artObject);
 }
 
-function newMagicItem(props) {
-    return ('a magic item');
-}
-
 function newRarity(props) {
     const bootyDie = props.str;
     const rarityMap = {
         3: newTradeGood,
         5: newBookScroll,
         7: newArtObject,
-        12: newMagicItem,
+        12: magicItem,
     }
     const rarityRoll = mapKeys(rarityMap, roll(bootyDie).result);
     const bookCount = (rarityRoll == 5 ) ? roll(bootyDie).result : 1;
