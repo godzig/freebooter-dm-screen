@@ -32,7 +32,7 @@ export function newMagicItem(props) {
     return magicItem;
 }
 
-function enchantedScroll() {
+export function enchantedScroll() {
     const spell = newSpellName();
     return (`${spell}, a scroll`);
 }
@@ -213,7 +213,7 @@ export function newGarb() {
     return garb;
 }
 
-function enchantedJewelry() {
+export function enchantedJewelry() {
     const jewelryMap = {
         10: 'Amulet',
         11: 'Anklet',

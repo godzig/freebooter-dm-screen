@@ -2,7 +2,7 @@ import { listItems, mapKeys, pick, roll } from '../app/utils';
 import { newGem } from './Gem';
 import { newWeapon, newArmorShield, newWandStaffRod } from './MagicItem';
 
-function newJewelry(props) {
+export function newJewelry(props) {
     const bootyDie = props.str;
     const weapon = newWeapon();
     const armor = newArmorShield();

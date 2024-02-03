@@ -1,6 +1,6 @@
 import { listItems, mapKeys, roll } from '../app/utils';
 
-function newTrinket(props) {
+export function newTrinket(props) {
     const generateMaterials = () => {
         let materialMap = {
             1: ['wood/stone/cloth/shell/bone/horn/feather', 1],

@@ -1,15 +1,18 @@
 
-export function listItems(props, newItemFunction){
+export function listItems(props, newItemFunction) {
     const items = []
 
     let count = (props && props.count) || 1;
-    for (let i = 0; i < count; i++) {
-        items.push(<li key={i}>{newItemFunction(props)}</li>);
+    if (typeof newItemFunction === 'function') {
+        for (let i = 0; i < count; i++) {
+            const dropCount = {...props};
+            delete dropCount.count;
+            items.push(<li key={i}>{newItemFunction(dropCount)}</li>);
+        }
     }
-    
     return (
         <ul className="list-disc mx-8">{items}</ul>
-    );    
+    );
 }
 
 
@@ -33,9 +36,9 @@ export function pick(arr) {
 
 export function roll(dice) {
     let updatedDice;
-    
+
     if (typeof dice === 'string') {
-        updatedDice = {'str': dice};
+        updatedDice = { 'str': dice };
     } else {
         updatedDice = dice;
     }
@@ -49,13 +52,13 @@ export function roll(dice) {
     const diceType = parseInt(parts[1], 10);
 
     // if NaN for count of dice, just use 1.
-    if (!numDice) { numDice = 1 }; 
+    if (!numDice) { numDice = 1 };
 
     let result = 0;
     for (let i = 0; i < numDice; i++) {
         result += Math.floor(Math.random() * diceType) + 1;
     }
-    updatedDice = {'str': dice.str, 'result': result};
+    updatedDice = { 'str': dice.str, 'result': result };
 
     return (updatedDice);
 }

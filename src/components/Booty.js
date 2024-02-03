@@ -1,5 +1,5 @@
-import { roll } from '../app/utils';
 import { useState } from 'react';
+import { roll } from '../app/utils';
 import bodyPart from './BodyPart';
 import personalItem from './PersonalItem';
 import trinket from './Trinket';
@@ -32,32 +32,32 @@ export default function Booty() {
             2: () => {
                 updatedBooty.Inherent = 'nothing of note';
                 updatedBooty.Carried = `currency worth ${roll('2d10').result} sp`;
-                updatedBooty.Stashed = personalItem({...dice, count: roll('d4').result});
-                updatedBooty['In Lair'] = personalItem({...dice, count: roll('d6').result});
+                updatedBooty.Stashed = personalItem({ ...dice, count: roll('d4').result });
+                updatedBooty['In Lair'] = personalItem({ ...dice, count: roll('d6').result });
             },
             3: () => {
                 updatedBooty.Inherent = 'nutriment worth (HP/2) rations';
-                updatedBooty.Carried = personalItem({...dice});
-                updatedBooty.Stashed = trinket({...dice, count: roll('d4').result});
-                updatedBooty['In Lair'] = trinket({...dice, count: roll('d6').result});
+                updatedBooty.Carried = personalItem({ ...dice });
+                updatedBooty.Stashed = trinket({ ...dice, count: roll('d4').result });
+                updatedBooty['In Lair'] = trinket({ ...dice, count: roll('d6').result });
             },
             4: () => {
-                updatedBooty.Inherent = bodyPart(dice.str);
-                updatedBooty.Carried = trinket({...dice});
+                updatedBooty.Inherent = bodyPart({ ...dice });
+                updatedBooty.Carried = trinket({ ...dice });
                 updatedBooty.Stashed = `currency worth ${roll('4d10').result} sp`;
                 updatedBooty['In Lair'] = `currency worth ${roll('6d10').result} sp`;
             },
             5: () => {
                 updatedBooty.Inherent = 'nutriment worth (HP/2) rations';
                 updatedBooty.Carried = `currency worth ${roll('4d10').result} sp`;
-                updatedBooty.Stashed = gem({...dice, count: roll('d4').result});
-                updatedBooty['In Lair'] = gem({...dice, count: roll('d6').result});
+                updatedBooty.Stashed = gem({ ...dice, count: roll('d4').result });
+                updatedBooty['In Lair'] = gem({ ...dice, count: roll('d6').result });
             },
             6: () => {
-                updatedBooty.Inherent = bodyPart(dice.str);
-                updatedBooty.Carried = gem({...dice});
-                updatedBooty.Stashed = jewelry({...dice});
-                updatedBooty['In Lair'] = jewelry({...dice, count: roll('d4').result});
+                updatedBooty.Inherent = bodyPart({ ...dice });
+                updatedBooty.Carried = gem({ ...dice });
+                updatedBooty.Stashed = jewelry({ ...dice });
+                updatedBooty['In Lair'] = jewelry({ ...dice, count: roll('d4').result });
             },
             7: () => {
                 updatedBooty.Inherent = 'nutriment worth (HP/2) rations';
@@ -66,10 +66,10 @@ export default function Booty() {
                 updatedBooty['In Lair'] = `currency worth ${roll('10d10').result} sp`;
             },
             8: () => {
-                updatedBooty.Inherent = bodyPart(dice.str);
-                updatedBooty.Carried = jewelry({...dice});
-                updatedBooty.Stashed = rarity({...dice});
-                updatedBooty['In Lair'] = rarity({...dice});
+                updatedBooty.Inherent = bodyPart({ ...dice });
+                updatedBooty.Carried = jewelry({ ...dice });
+                updatedBooty.Stashed = rarity({ ...dice });
+                updatedBooty['In Lair'] = rarity({ ...dice });
             },
             9: () => {
                 updatedBooty.Inherent = 'nutriment worth (HP/2) rations';
@@ -78,10 +78,10 @@ export default function Booty() {
                 updatedBooty['In Lair'] = `currency worth ${5 * roll('10d10').result} sp`;
             },
             10: () => {
-                updatedBooty.Inherent = bodyPart(dice.str);
-                updatedBooty.Carried = rarity({...dice});
-                updatedBooty.Stashed = rarity({...dice});
-                updatedBooty['In Lair'] = rarity({...dice, count: roll('d4').result});
+                updatedBooty.Inherent = bodyPart({ ...dice });
+                updatedBooty.Carried = rarity({ ...dice });
+                updatedBooty.Stashed = rarity({ ...dice });
+                updatedBooty['In Lair'] = rarity({ ...dice, count: roll('d4').result });
             },
             11: () => {
                 updatedBooty.Inherent = 'none';
@@ -91,9 +91,9 @@ export default function Booty() {
             },
             12: () => {
                 updatedBooty.Inherent = 'none';
-                updatedBooty.Carried = magicItem({...dice});
-                updatedBooty.Stashed = magicItem({...dice});
-                updatedBooty['In Lair'] = magicItem({...dice});
+                updatedBooty.Carried = magicItem({ ...dice });
+                updatedBooty.Stashed = magicItem({ ...dice });
+                updatedBooty['In Lair'] = magicItem({ ...dice });
             }
         };
 
@@ -105,8 +105,8 @@ export default function Booty() {
 
     return (
         <div className="px-0">
-            <button onClick={() => bootyRoll({ 'str': 'd4' })} className="bg-gray-800 hover:bg-gray-900 p-2 px-6 mb-2 mr-2 rounded-tl-3xl">d4 tiny poor</button>
-            {[['d6 sm mediocre', 'd6'],
+            {[['d4 tiny poor', 'd4'],
+            ['d6 sm mediocre', 'd6'],
             ['d8 md comfortable', 'd8'],
             ['d10 lg wealthy', 'd10'],
             ['d12 xl fabulous', 'd12']
@@ -115,7 +115,7 @@ export default function Booty() {
             ))
             }
             <button onClick={() => updateBooty(dice)} className="bg-gray-600 hover:bg-gray-700 p-2 px-6 mb-2 mr-2">same roll, new goodies</button>
-            <p className="mx-4">{dice.str}: {dice.result}</p>
+            <p className="mx-4">{dice.str} roll: {dice.result}</p>
             <ul className="list-disc mx-8">
                 {orderedBooty.map((where, i) => (
                     <li key={i}>{where}: {booty[where]}</li>

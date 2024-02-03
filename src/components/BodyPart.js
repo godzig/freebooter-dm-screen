@@ -1,6 +1,7 @@
 import { listItems, mapKeys, roll } from '../app/utils'
 
-export function newBodyPart(bootyDie) {
+export function newBodyPart(props) {
+    const bootyDie = props.str;
     const propertyFullText = {
         augmentation: 'augmentation/enhancement',
         charm: 'charm/ward/talisman',

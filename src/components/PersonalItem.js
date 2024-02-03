@@ -5,7 +5,7 @@ import { newBookScroll, newTradeGood } from './Rarity';
 import { newSpecialtyKit } from './MiscBootyDetails';
 
 
-function newPersonalItem(props) {
+export function newPersonalItem(props) {
     const bootyDie = props.str;
 
     const generateClothing = () => {
