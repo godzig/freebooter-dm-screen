@@ -16,11 +16,9 @@ import { newMagicItem } from './MagicItem';
 import { listItems } from '../app/utils'
 
 
-// will likely need a booty die level option
-// and a count option
-
-export default function ItemRoller() {
+export default function ItemRoller(props) {
     const [table, setTable] = useState({ tableTitle: '<Select a Table>', tableFunction: '', str: 'd12', result: 12, count: 10 });
+    table.count = props.menu.count;
 
     function updateTable([tableTitle, tableFunction]) {
         setTable({ ...table, tableTitle, tableFunction });
