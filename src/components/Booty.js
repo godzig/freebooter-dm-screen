@@ -8,17 +8,11 @@ import jewelry from './Jewelry';
 import rarity from './Rarity';
 import magicItem from './MagicItem';
 
-export default function Booty() {
-    const [dice, setDice] = useState({ 'result': 0, 'str': 'd4' });
+export default function Booty(props) {
+    const { bootyDie, result } = props.menuOptions;
+
     const [booty, setBooty] = useState({ 'Inherent': '', 'Carried': '', 'Stashed': '', 'In Lair': '' });
     const orderedBooty = ['Inherent', 'Carried', 'Stashed', 'In Lair'];
-
-    function bootyRoll(dice) {
-        const updatedDice = roll(dice);
-        // const updatedDice = {str: 'd12', result: 12};
-        setDice(updatedDice);
-        updateBooty(updatedDice);
-    }
 
     function updateBooty(dice) {
         const updatedBooty = {};
@@ -105,17 +99,7 @@ export default function Booty() {
 
     return (
         <div className="px-0">
-            {[['d4 tiny poor', 'd4'],
-            ['d6 sm mediocre', 'd6'],
-            ['d8 md comfortable', 'd8'],
-            ['d10 lg wealthy', 'd10'],
-            ['d12 xl fabulous', 'd12']
-            ].map(([text, dieRoll], i) => (
-                <button key={i} onClick={() => bootyRoll({ 'str': dieRoll })} className="bg-gray-800 hover:bg-gray-900 p-2 px-6 mb-2 mr-2">{text}</button>
-            ))
-            }
-            <button onClick={() => updateBooty(dice)} className="bg-gray-600 hover:bg-gray-700 p-2 px-6 mb-2 mr-2">same roll, new goodies</button>
-            <p className="mx-4">{dice.str} roll: {dice.result}</p>
+            <p className="mx-4">{bootyDie} roll: {result}</p>
             <ul className="list-disc mx-8">
                 {orderedBooty.map((where, i) => (
                     <li key={i}>{where}: {booty[where]}</li>

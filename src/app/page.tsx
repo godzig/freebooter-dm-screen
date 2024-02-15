@@ -1,17 +1,19 @@
 'use client'
 
-import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic'
+import { useState } from 'react';
+import { roll } from '../app/utils'
 import { enchantedJewelry, enchantedScroll, newPotion, newMiscellaneous, newGarb, newWandStaffRod, newWeapon, newArmorShield } from '../components/MagicItem'
 import { newBookName } from '../components/Book'
 import { newSpecialtyKit } from '../components/MiscBootyDetails'
 import { newSpellName } from '../components/SpellName'
-import { newBodyPart } from '../components/BodyPart';
-import { newPersonalItem } from '../components/PersonalItem';
-import { newTrinket } from '../components/Trinket';
-import { newGem } from '../components/Gem';
-import { newJewelry } from '../components/Jewelry';
-import { newTradeGood, newBookScroll, newArtObject, newRarity } from '../components/Rarity';
-import { newMagicItem } from '../components/MagicItem';
+import { newBodyPart } from '../components/BodyPart'
+import { newPersonalItem } from '../components/PersonalItem'
+import { newTrinket } from '../components/Trinket'
+import { newGem } from '../components/Gem'
+import { newJewelry } from '../components/Jewelry'
+import { newTradeGood, newBookScroll, newArtObject, newRarity } from '../components/Rarity'
+import { newMagicItem } from '../components/MagicItem'
 
 const Booty = dynamic(() => import('../components/Booty'), { ssr: false });
 const ItemRoller = dynamic(() => import('../components/ItemRoller'), { ssr: false });
@@ -40,16 +42,37 @@ export default function Home() {
     ['Wand, Staff, Rod', newWandStaffRod],
     ['Weapon', newWeapon],
   ];
+  const bootyDieMap = [
+    ['d4 tiny poor', 'd4'],
+    ['d6 sm mediocre', 'd6'],
+    ['d8 md comfortable', 'd8'],
+    ['d10 lg wealthy', 'd10'],
+    ['d12 xl fabulous', 'd12']
+  ];
 
-  const menuOptions = { str: 'd4', count: 5, result: 0, tableTitle: 'select a table', tableFunction: '' }
+  const [menuOptions, setMenuOptions] = useState({ bootyDie: 'd4', count: 5, result: 0, tableTitle: 'select a table', tableFunction: '' });
+
+  function setBootyDie(bootyDie) {
+    const result = roll(bootyDie).result;
+    setMenuOptions({...menuOptions, bootyDie, result});
+    console.log(menuOptions);
+  }
 
   return (
-    <main className="grid grid-cols-1 md:grid-cols-2 p-2 lg:p-24 ">
-      <div className="border border-gray-800 pt-0 pb-4 m-4">
-        <ItemRoller menu={menuOptions} />
+    <main>
+      <div>{
+        bootyDieMap.map(([text, bootyDie], i) => (
+          <button key={i} onClick={() => setBootyDie(bootyDie)} className="bg-gray-800 hover:bg-gray-900 p-2 px-6 mb-2 mr-2">{text}</button>
+        ))
+      }
       </div>
-      <div className="border border-gray-800 pt-0 pb-4 m-4">
-        <Booty menu={menuOptions} />
+      <div className="grid grid-cols-1 md:grid-cols-2 p-2 lg:p-24">
+        <div className="border border-gray-800 pt-0 pb-4 m-4">
+          <Booty menuOptions={menuOptions} />
+        </div>
+        <div className="border border-gray-800 pt-0 pb-4 m-4">
+          <ItemRoller />
+        </div>
       </div>
     </main>
   );

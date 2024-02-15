@@ -18,7 +18,7 @@ import { listItems } from '../app/utils'
 
 export default function ItemRoller(props) {
     const [table, setTable] = useState({ tableTitle: '<Select a Table>', tableFunction: '', str: 'd12', result: 12, count: 10 });
-    table.count = props.menu.count;
+    // table.count = props.count;
 
     function updateTable([tableTitle, tableFunction]) {
         setTable({ ...table, tableTitle, tableFunction });
