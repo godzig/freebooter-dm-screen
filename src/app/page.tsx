@@ -52,8 +52,8 @@ export default function Home() {
 
   const [menuOptions, setMenuOptions] = useState({ bootyDie: 'd4'});
 
-  function setBootyDie(bootyDie) {
-    setMenuOptions({bootyDie});
+  function setBootyDie(bootyDie: string) {
+    setMenuOptions({...menuOptions, bootyDie});
   }
 
   return (
