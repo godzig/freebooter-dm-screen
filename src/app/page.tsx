@@ -1,7 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { useState } from 'react';
+import { useState } from 'react'
 import { roll } from '../app/utils'
 import { enchantedJewelry, enchantedScroll, newPotion, newMiscellaneous, newGarb, newWandStaffRod, newWeapon, newArmorShield } from '../components/MagicItem'
 import { newBookName } from '../components/Book'
@@ -50,28 +50,26 @@ export default function Home() {
     ['d12 xl fabulous', 'd12']
   ];
 
-  const [menuOptions, setMenuOptions] = useState({ bootyDie: 'd4', count: 5, result: 0, tableTitle: 'select a table', tableFunction: '' });
+  const [menuOptions, setMenuOptions] = useState({ bootyDie: 'd4'});
 
   function setBootyDie(bootyDie) {
-    const result = roll(bootyDie).result;
-    setMenuOptions({...menuOptions, bootyDie, result});
-    console.log(menuOptions);
+    setMenuOptions({bootyDie});
   }
 
   return (
     <main>
-      <div>{
+      <div className="p-2 lg:p-24 lg:pb-12">{
         bootyDieMap.map(([text, bootyDie], i) => (
           <button key={i} onClick={() => setBootyDie(bootyDie)} className="bg-gray-800 hover:bg-gray-900 p-2 px-6 mb-2 mr-2">{text}</button>
         ))
       }
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 p-2 lg:p-24">
-        <div className="border border-gray-800 pt-0 pb-4 m-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 px-2 lg:px-24 gap-4">
+        <div className="border border-gray-800 pt-0 pb-4">
           <Booty menuOptions={menuOptions} />
         </div>
-        <div className="border border-gray-800 pt-0 pb-4 m-4">
-          <ItemRoller />
+        <div className="border border-gray-800 pt-0 pb-4">
+          <ItemRoller menuOptions={menuOptions} />
         </div>
       </div>
     </main>

@@ -7,38 +7,38 @@ const property = ["Acid", "Aether", "Air", "Anger", "Ash", "Avarice", "Balance",
 const adjective = ["All-Knowing", "All-Seeing", "Arcane", "Befuddling", "Binding", "Black", "Blazing", "Blinding", "Bloody", "Bright", "Cacophonous", "Cerulean", "Concealing", "Confusing", "Consuming", "Crimson", "Damnable", "Dark", "Deflecting", "Delicate", "Demonic", "Devastating", "Devilish", "Diminishing", "Draining", "Eldritch", "Empowering", "Enlightening", "Ensorcelling", "Entangling", "Enveloping", "Erratic", "Evil", "Excruciating", "Expanding", "Extra-Planar", "Fearsome", "Flaming", "Floating", "Freezing", "Glittering", "Gyrating", "Helpful", "Hindering", "Icy", "Illusory", "Incredible", "Inescapable", "Ingenious", "Instant", "Invigorating", "Invisible", "Invulnerable", "Liberating", "Maddening", "Magnificent", "Many-Colored", "Mighty", "Most Excellent", "Omnipotent", "Oozing", "Penultimate", "Pestilential", "Piercing", "Poisonous", "Prismatic", "Raging", "Rejuvenating", "Restorative", "Screaming", "Sensitive", "Shimmering", "Shining", "Silent", "Sleeping", "Slow", "Smoking", "Sorcerer's", "Strange", "Stupefying", "Terrible", "Thirsty", "Thundering", "Trans-dimensional", "Transmuting", "Ultimate", "Uncontrollable", "Unseen", "Unstoppable", "Untiring", "Vengeful", "Vexing", "Violent", "Violet", "Viridian", "Voracious", "Weakening", "White", "Wondrous", "Yellow"];
 
 export function newSpellName() {
-    const spellNameMap = {
-        2: `${pick(property)} ${pick(form)}`,
-        4: `${pick(adjective)} ${pick(form)}`,
-        6: `${pick(adjective)} ${pick(property)}`,
-        7: `${pick(form)} of ${pick(property)}`,
-        8: `${pick(form)} of ${pick(adjective)} ${pick(property)}`,
-        9: `${wizardName()}'s ${pick(adjective)} ${pick(form)}`,
-        10: `${wizardName()}'s ${pick(adjective)} ${pick(property)}`,
-        11: `${wizardName()}'s ${pick(form)} of ${pick(property)}`,
-        12: `${wizardName()}'s ${pick(property)} ${pick(form)}`,
-    }
-    const spellName = spellNameMap[mapKeys(spellNameMap, roll('d12').result)];
-    
-    return spellName;
+  const spellNameMap = {
+    2: `${pick(property)} ${pick(form)}`,
+    4: `${pick(adjective)} ${pick(form)}`,
+    6: `${pick(adjective)} ${pick(property)}`,
+    7: `${pick(form)} of ${pick(property)}`,
+    8: `${pick(form)} of ${pick(adjective)} ${pick(property)}`,
+    9: `${wizardName()}'s ${pick(adjective)} ${pick(form)}`,
+    10: `${wizardName()}'s ${pick(adjective)} ${pick(property)}`,
+    11: `${wizardName()}'s ${pick(form)} of ${pick(property)}`,
+    12: `${wizardName()}'s ${pick(property)} ${pick(form)}`,
+  }
+  const spellName = spellNameMap[mapKeys(spellNameMap, roll('d12').result)];
+
+  return spellName;
 }
 
 export default function spellName(props) {
-    const spells = []
-    const [spellKey, setSpellKey] = useState(1);
+  const spells = []
+  const [spellKey, setSpellKey] = useState(1);
 
-    function updateSpell() {
-        setSpellKey(Math.random());
-    }
+  function updateSpell() {
+    setSpellKey(Math.random());
+  }
 
-    for (let i = 0; i < props.count; i++) {
-        spells.push(<li key={i}>{newSpellName()}</li>);
-    }
+  for (let i = 0; i < props.count; i++) {
+    spells.push(<li key={i}>{newSpellName()}</li>);
+  }
 
-    return (
-        <>
-            <button onClick={updateSpell} className="bg-gray-800 hover:bg-gray-900 rounded-t-3xl p-2 mb-2">New Spells</button>
-            <ul className="list-disc mx-8">{spells}</ul>
-        </>
-    );
+  return (
+    <>
+      <button onClick={updateSpell} className="bg-gray-800 hover:bg-gray-900 rounded-t-3xl p-2 mb-2">New Spells</button>
+      <ul className="list-disc mx-8">{spells}</ul>
+    </>
+  );
 }

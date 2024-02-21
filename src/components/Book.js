@@ -8,43 +8,43 @@ const subtitle = [": A Modern Deconstruction ", ": A Refutation ", ": A Shocking
 const preposition = ["Toward ", "On ", "About ", "Regarding ", "Concerning ", "Within ", "Preceding ", "Unto ", "After ", "Upon ", "Without ", "In Defense of ", "Against ", "Describing ", "Navigating ", "Bumbling through ", "Meandering through ", "Strolling through ", "Interpreting ", "Reimagining ", "Debating ", "From ", "To ", "An Attack on ", "Discovering ", "Uncovering ", "Recovering ", "Covering ", "Touching on ", "Summarizing ", "Collecting ", "Revealing ", "Setting aside ", "Embracing ", "Re-evaluating ", "Recording ", "Capturing ", "Being ", "Examining ", "Re-examining ", "Rediscovering ", "Refuting "];
 
 export function newBookName() {
-    let bookName = '';
-    if (Math.random() <= 0.5) { bookName += pick(preposition); }
-    if (Math.random() <= 0.5) { bookName += pick(type); }
+  let bookName = '';
+  if (Math.random() <= 0.5) { bookName += pick(preposition); }
+  if (Math.random() <= 0.5) { bookName += pick(type); }
 
-    const option = Math.random()
-    if (option <= 0.333) {
-        bookName += pick(topic);
-    } else if (option <= 0.666) {
-        bookName += `${pick(topic)}& ${pick(topic)}`;
-    } else {
-        bookName += `${pick(topic)}of ${pick(topic)}`;
-    }
+  const option = Math.random()
+  if (option <= 0.333) {
+    bookName += pick(topic);
+  } else if (option <= 0.666) {
+    bookName += `${pick(topic)}& ${pick(topic)}`;
+  } else {
+    bookName += `${pick(topic)}of ${pick(topic)}`;
+  }
 
-    if (Math.random() <= 0.25) { bookName = bookName.trim() + pick(subtitle); }
-    
-    // Title Case
-    bookName = bookName.substring(0, 1).toUpperCase() + bookName.substring(1);
+  if (Math.random() <= 0.25) { bookName = bookName.trim() + pick(subtitle); }
 
-    return bookName;
+  // Title Case
+  bookName = bookName.substring(0, 1).toUpperCase() + bookName.substring(1);
+
+  return bookName;
 }
 
 export default function Book(props) {
-    const [bookKey, setBookKey] = useState(1);
-    const books = []
+  const [bookKey, setBookKey] = useState(1);
+  const books = []
 
-    function updateBook() {
-        setBookKey(Math.random());
-    }
+  function updateBook() {
+    setBookKey(Math.random());
+  }
 
-    for (let i = 0; i < props.count; i++) {
-        books.push(<li key={i}>{newBookName()}</li>);
-    }
+  for (let i = 0; i < props.count; i++) {
+    books.push(<li key={i}>{newBookName()}</li>);
+  }
 
-    return (
-        <>
-            <button onClick={updateBook} className="bg-gray-800 hover:bg-gray-900 rounded-t-3xl p-2 mb-2">New Books</button>
-            <ul className="list-disc mx-8">{books}</ul>
-        </>
-    )
+  return (
+    <>
+      <button onClick={updateBook} className="bg-gray-800 hover:bg-gray-900 rounded-t-3xl p-2 mb-2">New Books</button>
+      <ul className="list-disc mx-8">{books}</ul>
+    </>
+  )
 }
