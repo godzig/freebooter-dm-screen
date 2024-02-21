@@ -1,5 +1,5 @@
-import { listItems, mapKeys, roll, wizardName } from '../app/utils';
-import { newSpellName } from './SpellName';
+import { listItems, mapKeys, roll, wizardName } from '../app/utils'
+import { newSpellName } from './SpellName'
 
 export function newMagicItem(props) {
   const bootyDie = props.bootyDie;
@@ -486,5 +486,5 @@ function newMagicItemName(item) {
 }
 
 export default function magicItem(props) {
-  return (listItems(props, newMagicItem(props)));
+  return (listItems(props, newMagicItem));
 }
