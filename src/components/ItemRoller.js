@@ -21,8 +21,13 @@ export default function ItemRoller(props) {
 
   const [table, setTable] = useState({ tableTitle: '<Select a Table>', tableFunction: '', bootyDie, result: 12, count: 10 });
 
-  function updateTable([tableTitle, tableFunction]) {
-    setTable({ ...table, tableTitle, tableFunction });
+  function updateTable(tableOption = null) {
+    if (tableOption) {
+      const [tableTitle, tableFunction] = tableOption;
+      setTable({ ...table, tableTitle, tableFunction });
+    } else {
+      setTable((prevTable) => ({ ...prevTable }));
+    }
   }
 
   const menuMap = [
@@ -48,25 +53,31 @@ export default function ItemRoller(props) {
     ['Wand, Staff, Rod', newWandStaffRod],
     ['Weapon', newWeapon],
   ];
-
+  
   return (
     <>
-      <Menu as="div" className="text-left">
-        <Menu.Button className="inline-flex w-full gap-x-1.5 bg-gray-800 px-3 py-2 hover:bg-gray-900">
-          {table.tableTitle}
-          <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
-        </Menu.Button>
-
-        <Menu.Items className="right-0 mt-2 w-40 origin-top-right bg-gray-800 focus:outline-none">
-          {menuMap.map((tableOption, i) => (
-            <Menu.Item key={i}>
-              <button key={i} onClick={() => updateTable(tableOption)} className="w-full text-left py-2 px-4 bg-gray-800 hover:bg-gray-700">
-                {tableOption[0]}
-              </button>
-            </Menu.Item>
-          ))}
-        </Menu.Items>
-      </Menu>
+      <div className="flex items-start">
+        <div className="mr-2">
+          <Menu as="div" className="text-left">
+            <Menu.Button className="inline-flex gap-x-2 bg-gray-800 px-6 py-2 hover:bg-gray-900">
+              {table.tableTitle}
+              <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
+            </Menu.Button>
+            <Menu.Items className="absolute z-10 mt-2 w-40 origin-top-right bg-gray-800 focus:outline-none">
+              {menuMap.map((tableOption, i) => (
+                <Menu.Item key={i}>
+                  <button key={i} onClick={() => updateTable(tableOption)} className="w-full text-left py-2 px-4 bg-gray-800 hover:bg-gray-700">
+                    {tableOption[0]}
+                  </button>
+                </Menu.Item>
+              ))}
+            </Menu.Items>
+          </Menu>
+        </div>
+        <div className="flex items-start">
+          <button onClick={() => updateTable()} className="bg-gray-800 hover:bg-gray-900 p-2 px-6">Reroll</button>
+        </div>
+      </div>
       <div className="py-4">
         {listItems(table, table.tableFunction)}
       </div>

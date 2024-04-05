@@ -110,9 +110,9 @@ export default function Booty(props) {
 
   return (
     <div className="px-0">
-      <button onClick={() => reRollResult(bootyDie)} className="bg-gray-800 hover:bg-gray-900 p-2 px-6 mb-2 mr-2">ReRoll</button>
-      <button onClick={() => keepResult()} className="bg-gray-800 hover:bg-gray-900 p-2 px-6 mb-2 mr-2">ReGenerate</button>
-      <p className="mx-4">{bootyDie} roll: {result}</p>
+      <button onClick={() => reRollResult(bootyDie)} className="bg-gray-800 hover:bg-gray-900 p-2 px-6 mb-2 mr-2">Reroll</button>
+      <button onClick={() => keepResult()} className="bg-gray-800 hover:bg-gray-900 p-2 px-6 mb-2 mr-2">Regenerate</button>
+      <span className="mx-4">On a {bootyDie} the roll was {result}</span>
       <ul className="list-disc mx-8">
         {orderedBooty.map((where, i) => (
           <li key={i}>{where}: {booty[where]}</li>

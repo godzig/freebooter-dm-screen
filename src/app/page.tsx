@@ -50,26 +50,36 @@ export default function Home() {
     ['d12 xl fabulous', 'd12']
   ];
 
-  const [menuOptions, setMenuOptions] = useState({ bootyDie: 'd4'});
+  const [menuOptions, setMenuOptions] = useState({ bootyDie: 'd4' });
 
   function setBootyDie(bootyDie: string) {
-    setMenuOptions({...menuOptions, bootyDie});
+    setMenuOptions({ ...menuOptions, bootyDie });
   }
 
   return (
     <main>
-      <div className="p-2 lg:p-24 lg:pb-12">{
-        bootyDieMap.map(([text, bootyDie], i) => (
-          <button key={i} onClick={() => setBootyDie(bootyDie)} className="bg-gray-800 hover:bg-gray-900 p-2 px-6 mb-2 mr-2">{text}</button>
-        ))
-      }
+      <div className="p-2 lg:p-24 lg:pb-12">
+        <h1 className="mb-4 text-2xl">Freebooters Booty Generator</h1>
+        <p className="h-10">This is an implementation of the booty generation tables for Freebooters of the Frontier.</p>
+        <p className="h-10">Select the appropriate booty die below:</p>
+        {
+          bootyDieMap.map(([text, bootyDie], i) => (
+            <button key={i} onClick={() => setBootyDie(bootyDie)} className="bg-gray-800 hover:bg-gray-900 p-2 px-6 mb-2 mr-2">{text}</button>
+          ))
+        }
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 px-2 lg:px-24 gap-4">
-        <div className="border border-gray-800 pt-0 pb-4">
-          <Booty menuOptions={menuOptions} />
+        <div className="flex flex-col">
+          <p className="h-16">With a booty die chosen, you can reroll the dice, or regenerate the outcome.</p>
+          <div className="border border-gray-800 pt-0 pb-4 flex-grow">
+            <Booty menuOptions={menuOptions} />
+          </div>
         </div>
-        <div className="border border-gray-800 pt-0 pb-4">
-          <ItemRoller menuOptions={menuOptions} />
+        <div className="flex flex-col">
+          <p className="h-16">This rolls random items from the various tables for inspiration.</p>
+          <div className="border border-gray-800 pt-0 pb-4 flex-grow">
+            <ItemRoller menuOptions={menuOptions} />
+          </div>
         </div>
       </div>
     </main>
